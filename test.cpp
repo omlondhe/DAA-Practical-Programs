@@ -21,6 +21,7 @@ void merge(int start1, int end1, int end2, int arr[]) {
 
     for (int i = start1, j = 0; i <= end2; i++, j++) arr[i] = temp[j];
 }
+
 void mergeSort(int start, int end, int arr[]) {
     if (start >= end) return;
     int mid = start + ((end - start) >> 1);
@@ -52,59 +53,59 @@ void quickSort(int start, int end, int arr[]) {
 }
 
 // N Queens
-void printBoard(int n, vector<vector<char>>& board) {
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) cout << (board[i][j] == 'Q' ? 'Q' : '-') << " ";
-        cout << "\n";
-    }
-    cout << "\n";
-}
-bool isSafe(int n, int row, int col, vector<vector<char>>& board) {
-    int leftCol = col - 1;
-    int rightCol = col + 1;
-    row--;
+// void printBoard(int n, vector<vector<char>>& board) {
+//     for (int i = 0; i < n; i++) {
+//         for (int j = 0; j < n; j++) cout << (board[i][j] == 'Q' ? 'Q' : '-') << " ";
+//         cout << "\n";
+//     }
+//     cout << "\n";
+// }
+// bool isSafe(int n, int row, int col, vector<vector<char>>& board) {
+//     int leftCol = col - 1;
+//     int rightCol = col + 1;
+//     row--;
 
-    while (row >= 0) {
-        if (board[row][col] == 'Q') return false;
-        if (leftCol >= 0 && board[row][leftCol] == 'Q') return false;
-        if (rightCol < n && board[row][rightCol] == 'Q') return false;
-        leftCol--; row--; rightCol++;
-    }
+//     while (row >= 0) {
+//         if (board[row][col] == 'Q') return false;
+//         if (leftCol >= 0 && board[row][leftCol] == 'Q') return false;
+//         if (rightCol < n && board[row][rightCol] == 'Q') return false;
+//         leftCol--; row--; rightCol++;
+//     }
 
-    return true;
-}
-void nQueens(int row, int n, vector<vector<char>>& board) {
-    if (row == n) {
-        printBoard(n, board);
-        return;
-    }
+//     return true;
+// }
+// void nQueens(int row, int n, vector<vector<char>>& board) {
+//     if (row == n) {
+//         printBoard(n, board);
+//         return;
+//     }
 
-    for (int col = 0; col < n; col++) {
-        if (isSafe(n, row, col, board)) {
-            board[row][col] = 'Q';
-            nQueens(row + 1, n, board);
-            board[row][col] = '0';
-        }
-    }
-}
-void nQueens(int n) {
-    vector board(n, vector<char>(n, '0'));
-    nQueens(0, n, board);
-}
+//     for (int col = 0; col < n; col++) {
+//         if (isSafe(n, row, col, board)) {
+//             board[row][col] = 'Q';
+//             nQueens(row + 1, n, board);
+//             board[row][col] = '0';
+//         }
+//     }
+// }
+// void nQueens(int n) {
+//     vector board(n, vector<char>(n, '0'));
+//     nQueens(0, n, board);
+// }
 
 // 0/1 KnapSack
-int knapsack(int index, int weight, int weights[], int costs[], vector<vector<int>>& memo) {
-    if (index == 0) return weights[index] <= weight ? costs[index] : 0; 
-    if (memo[index][weight] != -1) return memo[index][weight];
+// int knapsack(int index, int weight, int weights[], int costs[], vector<vector<int>>& memo) {
+//     if (index == 0) return weights[index] <= weight ? costs[index] : 0; 
+//     if (memo[index][weight] != -1) return memo[index][weight];
 
-    int pick = (weights[index] <= weight) ? knapsack(index - 1, weight - weights[index], weights, costs, memo) + costs[index] : 0;
-    int skip = knapsack(index - 1, weight, weights, costs, memo);
-    return memo[index][weight] = max(pick, skip);
-}
-void knapsack(int n, int weight, int weights[], int costs[]) {
-    vector memo(n, vector<int>(weight + 1, -1));
-    cout << knapsack(n - 1, weight, weights, costs, memo);
-}
+//     int pick = (weights[index] <= weight) ? knapsack(index - 1, weight - weights[index], weights, costs, memo) + costs[index] : 0;
+//     int skip = knapsack(index - 1, weight, weights, costs, memo);
+//     return memo[index][weight] = max(pick, skip);
+// }
+// void knapsack(int n, int weight, int weights[], int costs[]) {
+//     vector memo(n, vector<int>(weight + 1, -1));
+//     cout << knapsack(n - 1, weight, weights, costs, memo);
+// }
 
 // TSP Branch and Bound
 const int INF = INT_MAX;
@@ -261,11 +262,11 @@ int main() {
                 break;
             
             case 3:
-                nQueens(5);
+                // nQueens(5);
                 break;
             
             case 4:
-                knapsack(5, weight, weights, costs);
+                // knapsack(5, weight, weights, costs);
                 break;
             
             case 5:

@@ -2,73 +2,39 @@
 #include <vector>
 using namespace std;
 
-class MergeSort {
-    private:
-        int n;
-        vector<int> arr;
+void print(int n, int arr[]) { for (int i = 0; i < n; i++) cout << arr[i] << " "; cout << "\n"; }
 
-    public:
-        // constructor
-        MergeSort(vector<int>& arr, int n) {
-            this->n = n;
-            this->arr = arr;
-        }
+// Merge Sort
+void merge(int start1, int end1, int end2, int arr[]) {
+    const int n = end1 - start1 + end2 - end1 + 3;
+    int temp[n];
+    int k = 0;
+    int i = start1;
+    int j = end1 + 1;
 
-        // merger function
-        void merge(int start1, int end1, int start2, int end2) {
-            // initial pointers
-            int s1 = start1;
-            int s2 = start2;
-            vector<int> sorted;
-            // looping till we do not traverse and merge all elements
-            while (s1 <= end1 || s2 <= end2) {
-                if (s1 <= end1 && s2 <= end2) {
-                    if (arr[s1] <= arr[s2]) sorted.push_back(arr[s1++]);
-                    else sorted.push_back(arr[s2++]);
-                } else if (s1 <= end1) sorted.push_back(arr[s1++]);
-                else if (s2 <= end2) sorted.push_back(arr[s2++]);
-            }
+    while (i <= end1 || j <= end2) {
+        if (i <= end1 && j <= end2) {
+            if (arr[i] <= arr[j]) temp[k++] = arr[i++];
+            else temp[k++] = arr[j++];
+        } else if (i <= end1) temp[k++] = arr[i++];
+        else if (j <= end2) temp[k++] = arr[j++];
+    }
 
-            // assigning sorted elements to the array
-            for (int i = start1, j = 0; i <= end2; i++, j++)
-                arr[i] = sorted[j];
-        }
+    for (int i = start1, j = 0; i <= end2; i++, j++) arr[i] = temp[j];
+}
 
-        // function to sort the array
-        void sort(int start, int end) {
-            // return if start >= end
-            if (start >= end) return;
-            // find the mid
-            int mid = start + ((end - start) >> 1);
-            // calling sort for left half
-            sort(start, mid);
-            // calling sort for right half
-            sort(mid + 1, end);
-            // merge sorted arrays
-            merge(start, mid, mid + 1, end);
-        }
-
-        // printing the code
-        inline void print() {
-            for (int n: arr) cout << n << " ";
-            cout << "\n";
-        }
-};
+void mergeSort(int start, int end, int arr[]) {
+    if (start >= end) return;
+    int mid = start + ((end - start) >> 1);
+    mergeSort(start, mid, arr);
+    mergeSort(mid + 1, end, arr);
+    merge(start, mid, end, arr);
+}
 
 int main() {
-    // size of input
-    int n;
-    cin >> n;
-    // creating array for input
-    vector<int> arr(n);
-    // taking array input
-    for (int i = 0; i < n; i++) cin >> arr[i];
-
-    MergeSort *mergeSort = new MergeSort(arr, n);
-    // calling merge sort
-    mergeSort->sort(0, n - 1);
-    // printing the array
-    mergeSort->print();
-
+    int n = 10;
+    int arr[] = { 3, 6, 2, 8, 9, 5, 4, 7, 2, 8 };
+    mergeSort(0, n - 1, arr);
+    print(n, arr);
     return 0;
 }

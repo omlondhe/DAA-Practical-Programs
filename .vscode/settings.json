@@ -2,7 +2,8 @@
   "files.associations": {
     "vector": "cpp",
     "iomanip": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "iostream": "cpp"
   },
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
